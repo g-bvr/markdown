@@ -17,21 +17,22 @@ import static org.jkube.logging.Log.onException;
 
 public class MarkdownDecomposer  {
 
-    private static final String INFO = "info";
+    private static final String INFO = "meta";
     private static final String SECTION = "section";
     private static final String TITLE = "title";
     private static final String LEVEL = "level";
+    private static final String ORDER = "order";
     private static final String ROW = "row";
     private static final String SEP = " ";
 
     public void decompose(Path sourcePath, Path targetPath) {
         MarkdownFile input = new MarkdownFile(sourcePath);
-        writeRecursively(targetPath, input.getMainSection());
+        writeRecursively(targetPath, input.getMainSection(), 1);
     }
 
-    private void writeRecursively(Path path, MarkdownSection section) {
+    private void writeRecursively(Path path, MarkdownSection section, int order) {
         FileUtil.createIfNotExists(path);
-        writeInfo(path.resolve(INFO), section.getTitle(), section.getLevel());
+        writeInfo(path.resolve(INFO), section.getTitle(), section.getLevel(), order);
         Map<ElementType, Integer> num = new HashMap<>();
         section.getElements().forEach(element -> num.put(element.getType(), num.getOrDefault(element.getType(), 0)+1));
         Map<ElementType, Integer> counts = new HashMap<>();
@@ -39,12 +40,13 @@ public class MarkdownDecomposer  {
         int numsections = section.getSubSections().size();
         int i = 1;
         for (MarkdownSection subsection : section.getSubSections()) {
-            writeRecursively(path.resolve(SECTION+getNumberSuffix(i++, numsections)), subsection);
+            writeRecursively(path.resolve(SECTION+getNumberSuffix(i, numsections)), subsection, i);
+            i++;
         }
     }
 
-    private void writeInfo(Path file, String title, int level) {
-        List<String> info = List.of(TITLE+SEP+title, LEVEL+SEP+level);
+    private void writeInfo(Path file, String title, int level, int order) {
+        List<String> info = List.of(TITLE+SEP+title, LEVEL+SEP+level, ORDER+SEP+order);
         onException(() -> Files.write(file, info))
                 .fail("Could not write info to "+file);
     }
@@ -53,7 +55,7 @@ public class MarkdownDecomposer  {
         ElementType type = element.getType();
         int count = counts.getOrDefault(type, 0)+1;
         counts.put(type, count);
-        String name = type.name().toLowerCase()+"-"+getNumberSuffix(count, num.get(type));
+        String name = type.name().toLowerCase()+getNumberSuffix(count, num.get(type));
         Path target = path.resolve(name);
         if (type == ElementType.TABLE) {
             writeTable(target, element.getLines());

@@ -17,10 +17,15 @@ public class MarkdownTableParser {
 		Expect.atLeast(lines.size(), 2).elseFail("Expected at least 2 lines for table, got "+lines.size());
 		columnTitles = parseLine(lines.get(0));
 		rows = new ArrayList<>();
-		Expect.isTrue(TABLE_SEP_MATCHER.matcher(lines.get(1)).matches()).elseFail("expected markdown table separator");
+		checkConsistency(parseLine(lines.get(1)));
 		for (int i = 2; i < lines.size(); i++) {
 			rows.add(parseRow(lines.get(i)));
 		}
+	}
+
+	private void checkConsistency(List<String> separators) {
+		Expect.size(separators, columnTitles.size()).elseFail("Row has "+separators.size()+" cells, table has "+columnTitles.size()+" columns");
+		separators.forEach(sep -> Expect.isTrue(TABLE_SEP_MATCHER.matcher(sep).matches()).elseFail("expected markdown table separator, got: "+sep));
 	}
 
 	public List<String> getColumnTitles() {
