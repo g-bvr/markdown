@@ -1,36 +1,26 @@
-# Title #
+ins.md
 
-Line 1
-Line 2
 
-## Section A ##
+UW PICO 5.09                                                                                           File: plugins.md
 
-This is a table:
+# Git-Beaver Plugins #
 
-| Col1   | Col2   | Col3   |
-|:-------|:-------|:-------|
-| Cell11 | Cell12 | Cell13 |
-| Cell21 | Cell22 | Cell23 |
+The table below specifies which plugins will be integrated into the docker image:
 
-Text below table
 
-## Section B ##
+| GitUrl             | RepoName                 | SourcePath    | MainClass                          |
+|:-------------------|:-------------------------|:--------------|:-----------------------------------|
+| https://github.com | git-beaver-file-resolver | src/main/java | org.jkube.gitbeaver.ResolverPlugin |
 
-Here come some subsections
+Note: The plugins "git-beaver-base" and "git-beaver-markdown" should not be included into the table,
+because they will be loaded by default (in order to become able to parse and process this markdown file).
 
-### SubSection B1 ###
+Explanation of columns:
 
-Text in subsection B1
+* GitUrl: the URL prefix of the git repository (not including the repo name)
+* RepoName: the name of the repository (the last element of the repo URL, not including the extension ".git")
+* SourcePath: the file path of the folder containing the java source files (using "/" as separator, not including leading or trailing "/")
+* MainClass: the class name of the main class (using "." as separator, not including the extension ".java")
 
-### SubSection B2 ###
 
-Text in subsection B2
-
-#### SubSubSection B11 ####
-
-Text in subsubsection B11
-
-### SubSection B3 ###
-
-Text in subsection B3
 
