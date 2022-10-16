@@ -1,21 +1,11 @@
 package org.jkube.gitbeaver;
 
-import org.jkube.gitbeaver.interfaces.Command;
-import org.jkube.gitbeaver.interfaces.Plugin;
+import org.jkube.gitbeaver.plugin.SimplePlugin;
 
-import java.util.List;
+public class MarkdownPlugin extends SimplePlugin {
 
-public class MarkdownPlugin implements Plugin {
-    @Override
-    public void init() {
+    public MarkdownPlugin() {
+        super(MarkdownDecomposeCommand.class);
     }
 
-    @Override
-    public List<Command> getCommands() {
-        return List.of(new MarkdownDecomposeCommand());
-    }
-
-    @Override
-    public void shutdown() {
-    }
 }
