@@ -27,9 +27,9 @@ public class MarkdownDecomposeCommand extends AbstractCommand {
 
     @Override
     public void execute(Map<String, String> variables, WorkSpace workSpace, Map<String, String> arguments) {
-        Path sourcePath = workSpace.getAbsolutePath(MARKDOWN);
-        Path targetPath = workSpace.getAbsolutePath(TARGET);
-        log("Resolving yaml file "+sourcePath+" to "+targetPath);
+        Path sourcePath = workSpace.getAbsolutePath(arguments.get(MARKDOWN));
+        Path targetPath = workSpace.getAbsolutePath(arguments.get(TARGET));
+        log("Resolving markdown file "+sourcePath+" to "+targetPath);
         FileUtil.createIfNotExists(targetPath.getParent());
         onException(() -> new MarkdownDecomposer().decompose(sourcePath, targetPath))
                 .fail("Could not write resolved lines to "+targetPath);
