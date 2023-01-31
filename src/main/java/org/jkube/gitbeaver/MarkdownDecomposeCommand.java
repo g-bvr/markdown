@@ -14,15 +14,22 @@ import static org.jkube.logging.Log.onException;
  */
 public class MarkdownDecomposeCommand extends AbstractCommand {
 
+    private static final String MARKDOWN = "markdown";
+
+    private static final String TARGET = "target";
+
     public MarkdownDecomposeCommand() {
-        super(2,2, "markdown", "decompose");
+        super("Decompose a markdown file into a folder tree");
+        commandline("DECOMPOSE MARKDOWN "+MARKDOWN+" INTO "+TARGET);
+        argument(MARKDOWN, "The path to the markdown file (relative to current workspace)");
+        argument(TARGET, "The path of the result folder (relative to current workspace, will be created including ancestors if not present, yet)");
     }
 
     @Override
-    public void execute(Map<String, String> variables, WorkSpace workSpace, List<String> arguments) {
-        Path sourcePath = workSpace.getAbsolutePath(arguments.get(0));
-        Path targetPath = workSpace.getAbsolutePath(arguments.get(1));
-        log("Resolving "+sourcePath+" to "+targetPath);
+    public void execute(Map<String, String> variables, WorkSpace workSpace, Map<String, String> arguments) {
+        Path sourcePath = workSpace.getAbsolutePath(MARKDOWN);
+        Path targetPath = workSpace.getAbsolutePath(TARGET);
+        log("Resolving yaml file "+sourcePath+" to "+targetPath);
         FileUtil.createIfNotExists(targetPath.getParent());
         onException(() -> new MarkdownDecomposer().decompose(sourcePath, targetPath))
                 .fail("Could not write resolved lines to "+targetPath);
