@@ -5,7 +5,7 @@ import org.jkube.gitbeaver.plugin.SimplePlugin;
 public class MarkdownPlugin extends SimplePlugin {
 
     public MarkdownPlugin() {
-        super(MarkdownDecomposeCommand.class);
+        super("Parses and deconstructs markdown files", MarkdownDecomposeCommand.class);
     }
 
 }
