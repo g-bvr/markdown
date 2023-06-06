@@ -22,7 +22,7 @@ public class MarkdownDecomposeCommand extends AbstractCommand {
         super("Decompose a markdown file into a folder tree");
         commandline("DECOMPOSE MARKDOWN "+MARKDOWN+" INTO "+TARGET);
         argument(MARKDOWN, "The path to the markdown file (relative to current workspace)");
-        argument(TARGET, "The path of the result folder (relative to current workspace, will be created including ancestors if not present, yet)");
+        argument(TARGET, "The path of the result folder (relative to current workspace, will be created including ancestors if not present, will be cleared if not empty)");
     }
 
     @Override
@@ -31,6 +31,7 @@ public class MarkdownDecomposeCommand extends AbstractCommand {
         Path targetPath = workSpace.getAbsolutePath(arguments.get(TARGET));
         log("Resolving markdown file "+sourcePath+" to "+targetPath);
         FileUtil.createIfNotExists(targetPath.getParent());
+        FileUtil.clear(targetPath);
         onException(() -> new MarkdownDecomposer().decompose(sourcePath, targetPath))
                 .fail("Could not write resolved lines to "+targetPath);
     }
