@@ -92,7 +92,7 @@ public class MarkdownDecomposer  {
             len++;
         }
         if (res.length() < len) {
-            res = "0".repeat(len - res.length());
+            res = "0".repeat(len - res.length()) + res;
         }
         return "-"+res;
     }
