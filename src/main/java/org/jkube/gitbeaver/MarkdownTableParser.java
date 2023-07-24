@@ -46,7 +46,8 @@ public class MarkdownTableParser {
 		return result;
 	}
 
-	private List<String> parseLine(String line) {
+	private List<String> parseLine(String rawline) {
+		String line = rawline.trim();
 		if (line.startsWith("|")) {
 			line = line.substring(1);
 		}
