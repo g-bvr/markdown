@@ -70,8 +70,9 @@ public class MarkdownDecomposer  {
         FileUtil.createIfNotExists(target);
         writeLines(target.resolve(COLUMNS),table.getColumnTitles());
         int i = 0;
+        int num = table.getRows().size();
         for (Map<String, String> row : table.getRows()) {
-            writeRow(target.resolve(ROW+getNumberSuffix(++i, rows.size())), row);
+            writeRow(target.resolve(ROW+getNumberSuffix(++i, num)), row);
         }
     }
 
