@@ -24,6 +24,7 @@ public class MarkdownDecomposer  {
     private static final String ORDER = "order";
     private static final String ROW = "row";
     private static final String SEP = " ";
+    private static final String COLUMNS = "columns";
 
     public void decompose(Path sourcePath, Path targetPath) {
         MarkdownFile input = new MarkdownFile(sourcePath);
@@ -65,10 +66,11 @@ public class MarkdownDecomposer  {
      }
 
     private void writeTable(Path target, List<String> lines) {
-        List<Map<String, String>> rows = new MarkdownTableParser(lines).getRows();
+        MarkdownTableParser table = new MarkdownTableParser(lines);
         FileUtil.createIfNotExists(target);
+        writeLines(target.resolve(COLUMNS),table.getColumnTitles());
         int i = 0;
-        for (Map<String, String> row : rows) {
+        for (Map<String, String> row : table.getRows()) {
             writeRow(target.resolve(ROW+getNumberSuffix(++i, rows.size())), row);
         }
     }
