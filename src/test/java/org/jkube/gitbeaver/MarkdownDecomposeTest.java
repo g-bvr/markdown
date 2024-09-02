@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
-import static org.jkube.logging.Log.onException;
+import static org.jkube.gitbeaver.logging.Log.onException;
 
 public class MarkdownDecomposeTest {
 

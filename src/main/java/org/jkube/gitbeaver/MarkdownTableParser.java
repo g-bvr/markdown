@@ -1,7 +1,7 @@
 package org.jkube.gitbeaver;
 
 
-import org.jkube.util.Expect;
+import org.jkube.gitbeaver.util.Expect;
 
 import java.util.*;
 import java.util.regex.Pattern;

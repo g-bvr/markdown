@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.jkube.logging.Log.onException;
+import static org.jkube.gitbeaver.logging.Log.onException;
 
 public class MarkdownDecomposer  {
 
