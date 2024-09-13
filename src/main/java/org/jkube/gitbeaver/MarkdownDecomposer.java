@@ -1,10 +1,10 @@
 package org.jkube.gitbeaver;
 
 import org.jkube.gitbeaver.util.FileUtil;
-import org.jkube.markdown.ElementType;
-import org.jkube.markdown.MarkdownElement;
-import org.jkube.markdown.MarkdownFile;
-import org.jkube.markdown.MarkdownSection;
+import org.jkube.gitbeaver.markdown.ElementType;
+import org.jkube.gitbeaver.markdown.MarkdownElement;
+import org.jkube.gitbeaver.markdown.MarkdownFile;
+import org.jkube.gitbeaver.markdown.MarkdownSection;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
