@@ -32,7 +32,6 @@ public class MarkdownDecomposeCommand extends AbstractCommand {
         log("Resolving markdown file "+sourcePath+" to "+targetPath);
         FileUtil.createIfNotExists(targetPath.getParent());
         FileUtil.clear(targetPath);
-        onException(() -> new MarkdownDecomposer().decompose(sourcePath, targetPath))
-                .fail("Could not write resolved lines to "+targetPath);
+        new MarkdownDecomposer().decompose(sourcePath, targetPath);
     }
 }

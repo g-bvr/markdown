@@ -71,7 +71,7 @@ public class ElementParser {
 				elementLines = lines.subList(from+1, to-1);
 			}
 		}
-		System.out.println("Element of type "+type+": "+elementLines.size()+" lines");
+		//System.out.println("Element of type "+type+": "+elementLines.size()+" lines");
 		return new MarkdownElement(elementLines, type);
 	}
 
