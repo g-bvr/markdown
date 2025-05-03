@@ -27,6 +27,7 @@ public class MarkdownDecomposeCommand extends AbstractCommand {
 
     @Override
     public void execute(Map<String, String> variables, WorkSpace workSpace, Map<String, String> arguments) {
+        System.out.println("I am decomposing");
         Path sourcePath = workSpace.getAbsolutePath(arguments.get(MARKDOWN));
         Path targetPath = workSpace.getAbsolutePath(arguments.get(TARGET));
         log("Resolving markdown file "+sourcePath+" to "+targetPath);
